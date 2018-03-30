@@ -60,6 +60,7 @@ base_src = env.Localize([
 	'tasks.c',
 	'util.c',
 	'aes_wrap.c',
+	'nostdlib.c',
 	])
 Export('base_src')
 
