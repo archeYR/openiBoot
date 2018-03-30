@@ -3427,10 +3427,15 @@ COMMAND("ftl_write", "FTL write single page", cmd_ftl_write);
 extern void YAFTL_Flush();
 static error_t cmd_ftl_flush(int argc, char** argv)
 {
+#ifdef CONFIG_FTL_YAFTL
 	YAFTL_Flush();
 	bufferPrintf("ftl: Command completed.\r\n");
 
 	return SUCCESS;
+#else
+	bufferPrintf("ftl: No FTL compiled.\r\n");
+	return ENOENT;
+#endif
 }
 COMMAND("ftl_flush", "FTL flush", cmd_ftl_flush);
 

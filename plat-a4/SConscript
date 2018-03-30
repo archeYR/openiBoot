@@ -9,7 +9,6 @@ env.AddModules([
 	"usb-synopsys",
 	"vfl-vfl",
 	"vfl-vsvfl",
-	"ftl-yaftl",
 	])
 
 plat_a4_src = arch_arm_src + base_src + env.Localize([
