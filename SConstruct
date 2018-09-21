@@ -20,10 +20,15 @@ henv = Environment()
 Export('henv')
 henv.SConscript(['scons/Doxygen.SConscript'])
 
-env = ARMEnvironment()
+# https://scons.org/doc/1.0.1/HTML/scons-user/x2361.html
+vars = Variables()
+vars.Add('VERSION_PKGSUFFIX', 'A suffix for the version number', '')
+vars.Add('VERSION_BUILD', 'A hash to indicate version', GetGitCommit())
+
+env = ARMEnvironment(variables = vars)
 env.Append(CPPDEFINES=[
-	'OPENIBOOT_VERSION='+version,
-	'OPENIBOOT_VERSION_BUILD='+GetGitCommit(),
+	'OPENIBOOT_VERSION='+version+'${VERSION_PKGSUFFIX}',
+	'OPENIBOOT_VERSION_BUILD=${VERSION_BUILD}',
 	])
 env.Append(CPPFLAGS = ['-Wall', '-Ttext=0x0'])
 Export('env')
