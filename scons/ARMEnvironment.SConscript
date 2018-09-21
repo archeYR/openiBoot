@@ -10,7 +10,7 @@ def ARMEnvironment(*a, **kw):
 	env.Append(CPPPATH = ['#includes'])
 	env.Append(CPPFLAGS = plat_flags+['-nostdlib'])
 	env.Append(ASPPFLAGS = ['-xassembler-with-cpp'])
-	env.Append(LINKFLAGS = plat_flags+['-nostdlib', '--nostdlib', '-Ttext=0x0'])
+	env.Append(LINKFLAGS = plat_flags+['-nostdlib', '-Ttext=0x0'])
 	env.Append(LIBS = ['gcc'])
 
 	env['PROGSUFFIX'] = ''
