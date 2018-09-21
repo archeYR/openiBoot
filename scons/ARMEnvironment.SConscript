@@ -6,7 +6,7 @@ import os
 
 def ARMEnvironment(*a, **kw):
 	env = Environment(tools=['gas', 'gcc', 'gnulink', 'ar'], ENV=os.environ, *a, **kw)
-	plat_flags = ['-mlittle-endian', '-mfpu=vfp', '-mthumb', '-mthumb-interwork', '-fPIC']
+	plat_flags = ['-mlittle-endian', '-mfpu=vfp', '-marm', '-fPIC']
 	env.Append(CPPPATH = ['#includes'])
 	env.Append(CPPFLAGS = plat_flags+['-nostdlib'])
 	env.Append(ASPPFLAGS = ['-xassembler-with-cpp'])
