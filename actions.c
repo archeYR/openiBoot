@@ -458,7 +458,6 @@ static error_t load_multitouch_images()
 void boot_linux(const char* args, uint32_t mach_type) {
 	uint32_t exec_at = (uint32_t) kernel;
 	uint32_t param_at = exec_at - 0x2000;
-	int i;
 
 	if(exec_at > RAMStart)
 		exec_at = (exec_at - RAMStart) + MemoryStart;
@@ -478,25 +477,13 @@ void boot_linux(const char* args, uint32_t mach_type) {
 
 	if(ramdiskSize > 0 && ramdisk != (void*)INITRD_LOAD)
 	{
-		for(i = 0; i < ((ramdiskSize + sizeof(uint32_t) - 1)/sizeof(uint32_t)); i++) {
-			((uint32_t*)INITRD_LOAD)[i] = ((uint32_t*)ramdisk)[i];
-		}
+		memcpy((void*)INITRD_LOAD, ramdisk, ramdiskSize);
 	}
 
-	for(i = 0; i < (0x1000/sizeof(uint32_t)); i++) {
-		((uint32_t*)PARAMS_PHYS)[i] = ((uint32_t*)param_at)[i];
-	}
+	memcpy((void*)PARAMS_PHYS, (void*)param_at, 0x1000);
 
-	asm (
-		"MOV	R0, #0\n"
-		"MOV	R1, %0\n"
-		"MOV	R2, %1\n"
-		"BX	%2"
-		:
-		: "r"(mach_type), "i"(PARAMS_PHYS), "r"(exec_at)
-		: "r0", "r1", "r2"
-	    );
-	__builtin_unreachable();
+	void __attribute__((noreturn)) (*exec_at_fn)(uint32_t zero, uint32_t mach_type, uint32_t params_phys) = (void*)exec_at;
+	exec_at_fn(0, mach_type, PARAMS_PHYS);
 }
 
 static BootEntry rootEntry;
