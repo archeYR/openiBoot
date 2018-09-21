@@ -453,6 +453,8 @@ static error_t load_multitouch_images()
     return SUCCESS;
 }
 
+#define PARAMS_PHYS 0x100
+
 void boot_linux(const char* args, uint32_t mach_type) {
 	uint32_t exec_at = (uint32_t) kernel;
 	uint32_t param_at = exec_at - 0x2000;
@@ -482,17 +484,19 @@ void boot_linux(const char* args, uint32_t mach_type) {
 	}
 
 	for(i = 0; i < (0x1000/sizeof(uint32_t)); i++) {
-		((uint32_t*)0x100)[i] = ((uint32_t*)param_at)[i];
+		((uint32_t*)PARAMS_PHYS)[i] = ((uint32_t*)param_at)[i];
 	}
 
-	asm (	"MOV	R4, %0\n"
+	asm (
 		"MOV	R0, #0\n"
-		"MOV	R1, %1\n"
-		"MOV	R2, %2\n"
-		"BX	R4"
+		"MOV	R1, %0\n"
+		"MOV	R2, %1\n"
+		"BX	%2"
 		:
-		: "r"(exec_at), "r"(mach_type), "r"(0x100)
+		: "r"(mach_type), "i"(PARAMS_PHYS), "r"(exec_at)
+		: "r0", "r1", "r2"
 	    );
+	__builtin_unreachable();
 }
 
 static BootEntry rootEntry;
