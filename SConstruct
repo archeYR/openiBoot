@@ -30,7 +30,7 @@ env.Append(CPPDEFINES=[
 	'OPENIBOOT_VERSION='+version+'${VERSION_PKGSUFFIX}',
 	'OPENIBOOT_VERSION_BUILD=${VERSION_BUILD}',
 	])
-env.Append(CPPFLAGS = ['-Wall', '-Ttext=0x0'])
+env.Append(CPPFLAGS = ['-Wall'])
 Export('env')
 
 def localize(env, ls):

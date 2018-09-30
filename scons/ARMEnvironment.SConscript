@@ -10,7 +10,8 @@ def ARMEnvironment(*a, **kw):
 	env.Append(CPPPATH = ['#includes'])
 	env.Append(CPPFLAGS = plat_flags+['-nostdlib'])
 	env.Append(ASPPFLAGS = ['-xassembler-with-cpp'])
-	env.Append(LINKFLAGS = plat_flags+['-nostdlib', '-Tlinkscript.x', '-Ttext=0x0', '-static'])
+	env.Append(LINKFLAGS = plat_flags+['-nostdlib', '-Tlinkscript.x', '-static', '-Wl,--omagic'])
+	# omagic above is to make text writable, though I don't know why a newer toolchain necessitates that to successfully link... -- Joey Hewitt
 	env.Append(LIBS = ['gcc'])
 
 	env['PROGSUFFIX'] = ''
