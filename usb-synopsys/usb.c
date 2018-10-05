@@ -276,6 +276,15 @@ int usb_setup(USBEnumerateHandler hEnumerate, USBStartHandler hStart)
 	return 0;
 }
 
+static void usb_disable_all_interrupts()
+{
+	SET_REG(USB + GINTMSK, GINTMSK_NONE);
+	SET_REG(USB + DIEPMSK, USB_EPINT_NONE);
+	SET_REG(USB + DOEPMSK, USB_EPINT_NONE);
+	SET_REG(USB + DAINT, DAINT_ALL);
+	SET_REG(USB + DAINTMSK, DAINTMSK_NONE);
+}
+
 int usb_start()
 {
 	usb_speed = 0;
@@ -316,12 +325,7 @@ int usb_start()
 	if(usb_fifo_mode == FIFOShared)
 		usb_set_epmis(1);
 
-	// disable all interrupts until endpoint descriptors and configuration structures have been setup
-	SET_REG(USB + GINTMSK, GINTMSK_NONE);
-	SET_REG(USB + DIEPMSK, USB_EPINT_NONE);
-	SET_REG(USB + DOEPMSK, USB_EPINT_NONE);
-	SET_REG(USB + DAINT, DAINT_ALL);
-	SET_REG(USB + DAINTMSK, DAINTMSK_NONE);
+	usb_disable_all_interrupts(); // until endpoint descriptors and configuration structures have been setup
 
 	int i;
 	for(i = 0; i < USB_NUM_ENDPOINTS; i++) {
@@ -1774,6 +1778,8 @@ int usb_shutdown()
 
 	clock_gate_switch(USB_OTGCLOCKGATE, ON);
 	clock_gate_switch(USB_PHYCLOCKGATE, ON);
+
+	usb_disable_all_interrupts();
 
 	SET_REG(USB + PCGCCTL, GET_REG(USB + PCGCCTL) | PCGCCTL_OFF); // reset link link
 
