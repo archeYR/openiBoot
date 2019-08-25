@@ -814,6 +814,22 @@ static error_t cmd_setup_boot(int argc, char **argv)
 }
 COMMAND("boot", "Boot the current boot entry.", cmd_setup_boot);
 
+static error_t cmd_wait_boot(int argc, char **argv)
+{
+	if(argc < 2) {
+		bufferPrintf("Usage: %s delay-in-ms\n", argv[0]);
+		return EINVAL;
+	}
+	else {
+		uint32_t ms = parseNumber(argv[1]);
+		task_sleep(ms);
+		setup_boot();
+	}
+
+	return SUCCESS;
+}
+COMMAND("wait_boot", "Wait for a time and then boot the current boot entry.", cmd_wait_boot);
+
 static error_t cmd_go(int argc, char** argv)
 {
 	uint32_t address;
