@@ -22,7 +22,7 @@
 #else
 #define OpenIBootLoad 0x00000000
 #define GeneralStack (PageTable - 4)
-#define HeapStart (LargeMemoryStart + 0x02000000)
+#define HeapStart (LargeMemoryStart + 0x00200000)
 #define PageTable (RAMEnd - 0x8000)
 #endif
 
