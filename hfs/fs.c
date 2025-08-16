@@ -18,6 +18,8 @@ int HasFSInit = FALSE;
 
 static int silence = 0;
 
+static uint8_t DKey[32];
+
 void hfs_setsilence(int s) {
 	silence = s;
 }

@@ -1,6 +1,7 @@
 #include "nor_files.h"
 #include <stdio.h>
 #include <string.h>
+#include <libxpwn.h>
 #define BUFFERSIZE (1024*1024)
 
 #ifdef __APPLE__
@@ -54,7 +55,7 @@ main(int argc, char* argv[])
 	size_t inElfSize;
 	char* outImage;
 	size_t outImageSize;
-	init_libxpwn();
+	init_libxpwn(&argc, argv);
 
 	if (argc < 3) {
 		printf("usage: %s <infile> <outfile> [template] [certificate]\n", argv[0]);

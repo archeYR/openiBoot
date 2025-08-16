@@ -25,43 +25,18 @@ DOING SO WILL INEVITABLY CAUSE YOU TO NEED TO RESTORE YOUR DEVICE, MAY LEAVE PER
 
 (If you read this warning properly, really unless you know wtf you are looking at - leave it alone until we stablise it)
 
-Compiling
+Compiling on Arch (with AUR)
 ---------------------------------------------------
 To run openiboot from recovery mode (a.k.a iboot), you’ll need to create an img3 image.
 To run openiboot from DFU mode, you'll need to create a bin.
 
-You will need a system capable of running x86 Linux binaries (Build requires scons, libssl, libpng, libcurl, libusb, libreadline and pthread). 
+Build requires make, scons, libssl, libpng, libcurl, libusb, libreadline and pthread.
+In addition, you will need xpwn-nyuszika7h-git and arm-linux-gnueabihf-gcc from AUR.
 
-Change into the openiboot subfolder
-
-**For iPod Touch 1G, run:**
-`scons iPodTouch1G`
-
-**For iPhone 2G, run:**
-`scons iPhone2G`
-
-**For iPhone 3G, run:**
-`scons iPhone3G`
-
-**For iPod Touch 2G, run:**
-`scons iPodTouch2G`
-
-**For iPhone 3GS, run:**
-`scons iPhone3GS`
-
-**For iPhone 4, run:**
-`scons iPhone4`
-
-**For iPod Touch 4G, run:**
-`scons iPodTouch4G`
-
-**For iPad 1G, run:**
-`scons iPad1G`
-
-**For Apple TV 2G, run:**
-`scons aTV2G`
-
-*Alternatively a Makefile has been provided in the openiboot subfolder should you prefer to use it this way - this is not covered by this README but is provided for your convenience should you wish to use it*
+Example:
+```
+CROSS=arm-linux-gnueabihf- PLATFORM=IPHONE4 make -j24
+```
 
 Menu Configuration
 ---------------------------------------------------

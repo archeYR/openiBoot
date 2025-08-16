@@ -4,6 +4,7 @@
 #include "openiboot.h"
 #include "cdma.h"
 #include "nand.h"
+#include "aes.h"
 
 #define H2FMI_STATE_IDLE	0
 #define H2FMI_STATE_READ	1
@@ -149,8 +150,6 @@ typedef struct _h2fmi_struct
 } h2fmi_struct_t;
 
 extern h2fmi_geometry_t h2fmi_geometry;
-uint32_t h2fmi_aes_enabled;
-uint32_t h2fmi_data_whitening_enabled;
 
 void h2fmi_set_encryption(uint32_t _arg);
 void h2fmi_set_whitening(uint32_t _arg);
@@ -159,7 +158,7 @@ error_t h2fmi_read_multi_ftl(uint32_t _ce, uint32_t _page, uint8_t *_ptr);
 
 void h2fmi_set_emf(uint32_t enable, uint32_t iv_input);
 uint32_t h2fmi_get_emf();
-void h2fmi_set_key(uint32_t enable, void* key, uint32_t length, uint32_t sha, uint32_t offset);
+void h2fmi_set_key(uint32_t enable, void* key, AESKeyLen length, uint32_t sha, uint32_t offset);
 
 typedef struct _emf_key {
 	uint32_t length;
@@ -186,7 +185,5 @@ typedef struct _plog_struct {
 
 	LockerEntry locker;
 } PLog;
-uint8_t DKey[32];
-uint8_t EMF[32];
 
 #endif //H2FMI_H

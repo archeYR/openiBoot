@@ -25,6 +25,7 @@
 #include "platform.h"
 #include "tasks.h"
 #include "util.h"
+#include "framebuffer.h"
 
 mainfn_t OpenIBootMain = NULL;
 

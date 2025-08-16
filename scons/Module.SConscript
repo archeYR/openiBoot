@@ -35,7 +35,7 @@ class Module:
 			env.Append(**a)
 
 def FindModule(env, name):
-	if env['MODULES'] != None and env['MODULES'].has_key(name):
+	if env['MODULES'] != None and name in env['MODULES']:
 		return env['MODULES'][name]
 
 	return None
@@ -58,7 +58,7 @@ env.AddMethod(CreateModule, "CreateModule")
 def AddModule(env, name):
 	mod = env.FindModule(name)
 	if mod is None:
-		print "No such module %s." % name
+		print("No such module %s." % name)
 		return None
 
 	mod.Add(env)
@@ -137,8 +137,8 @@ def OpenIBootTarget(env, name, fname, flag, sources, img3template=None):
 	locals()[img3_name] = img3
 	locals()[dimg3_name] = dimg3
 
-	Export([elf_name, bin_name, img3_name,
-			delf_name, dbin_name, dimg3_name])
+	Export(['elf_name', 'bin_name', 'img3_name',
+			'delf_name', 'dbin_name', 'dimg3_name'])
 
 	return elf, bin, img3
 env.AddMethod(OpenIBootTarget, "OpenIBootTarget")

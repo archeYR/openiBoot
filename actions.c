@@ -39,6 +39,7 @@
 #include "pmu.h"
 #include "platform.h"
 #include "timer.h"
+#include "tasks.h"
 
 #define MACH_APPLE_IPHONE	1506
 #ifndef MACH_ID

@@ -20,7 +20,7 @@ int event_setup() {
 	init_event_list();
 
 	SET_REG(TIMER_REGISTER_TICK, TIMER_STATE_MANUALUPDATE);
-    interrupt_install(TIMER_IRQ, eventTimerHandler, 0);
+    interrupt_install(TIMER_IRQ, (void (*)(unsigned int))eventTimerHandler, 0);
     interrupt_enable(TIMER_IRQ);
 	return 0;
 }

@@ -2,7 +2,7 @@ Import("*")
 
 import platform
 
-mk8900image = henv.Program('mk8900image', ['mk8900image.c'], LIBPATH='/usr/X11/lib', LIBS=['m', 'dl', 'xpwn', 'png', 'crypto', 'z'])
+mk8900image = henv.Program('mk8900image', ['mk8900image.c'], CPPPATH='/usr/local/include/xpwn', LIBPATH='/usr/X11/lib:/usr/local/lib/', LIBS=['m', 'dl', 'xpwn', 'common', 'png', 'crypto', 'z'])
 
 def generate_actions(source, target, env, for_sig=False, **kw):
 	Depends(target, mk8900image)

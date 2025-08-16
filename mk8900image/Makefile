@@ -4,6 +4,7 @@ CFLAGS +=
 UNAME := $(shell uname -s)
 
 LIBXPWN=libxpwn.a
+LIBCOMMON=libcommon.a
 
 %.o:	%.c
 	@echo "Compiling $@"
@@ -11,7 +12,7 @@ LIBXPWN=libxpwn.a
 
 mk8900image:	$(MKIMAGEOBJS)
 	@echo "Building $@"
-	@$(CC) $(CFLAGS) $(MKIMAGEOBJS) $(LIBXPWN) $(LIBRARIES) -o $@
+	@$(CC) $(CFLAGS) $(MKIMAGEOBJS) $(LIBXPWN) $(LIBCOMMON) $(LIBRARIES) -o $@
 
 clean:
 	@rm -f *.o

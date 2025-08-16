@@ -32,7 +32,7 @@ def DoxyfileParse(file_contents):
    data = {}
 
    import shlex
-   lex = shlex.shlex(instream = file_contents, posix = True)
+   lex = shlex.shlex(instream = str(file_contents), posix = True)
    lex.wordchars += "*+./-:"
    lex.whitespace = lex.whitespace.replace("\n", "")
    lex.escape = ""
@@ -46,10 +46,11 @@ def DoxyfileParse(file_contents):
    new_data = True
 
    def append_data(data, key, new_data, token):
-      if new_data or len(data[key]) == 0:
-         data[key].append(token)
-      else:
-         data[key][-1] += token
+      if key in data:
+         if new_data or len(data[key]) == 0:
+            data[key].append(token)
+         else:
+            data[key][-1] += token
 
    while token:
       if token in ['\n']:

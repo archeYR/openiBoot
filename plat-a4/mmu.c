@@ -69,7 +69,7 @@ void mmu_map_section(uint32_t section, uint32_t target, Boolean cacheable, Boole
 
 	//bufferPrintf("map section (%x): %x -> %x, %d %d (%x)\r\n", sectionEntry, section, target, cacheable, bufferable, *sectionEntry);
 
-	CleanDataCacheLineMVA(sectionEntry);
+	CleanDataCacheLineMVA(*sectionEntry);
 	InvalidateUnifiedTLBUnlockedEntries();
 }
 
