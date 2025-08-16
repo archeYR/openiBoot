@@ -249,7 +249,5 @@ void acm_stop()
 	free(acm_recv_buffer);
 
 	task_destroy(&acm_parse_task);
-
-	usb_shutdown();
 }
-MODULE_EXIT(acm_stop);
+
